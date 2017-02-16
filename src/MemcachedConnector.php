@@ -99,15 +99,18 @@ class MemcachedConnector
      */
     protected function validateConnection($memcached)
     {
-        $status = $memcached->getVersion();
+        // $memcached->getVersion() returns false if any of the
+        // added servers crash, which defeats the purpose of redundancy
+        
+        //$status = $memcached->getVersion();
 
-        if (! is_array($status)) {
-            throw new RuntimeException('No Memcached servers added.');
-        }
+        //if (! is_array($status)) {
+        //    throw new RuntimeException('No Memcached servers added.');
+        //}
 
-        if (in_array('255.255.255', $status) && count(array_unique($status)) === 1) {
-            throw new RuntimeException('Could not establish Memcached connection.');
-        }
+        //if (in_array('255.255.255', $status) && count(array_unique($status)) === 1) {
+        //    throw new RuntimeException('Could not establish Memcached connection.');
+        //}
 
         return $memcached;
     }
